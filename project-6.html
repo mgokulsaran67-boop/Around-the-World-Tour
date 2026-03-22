@@ -4,99 +4,111 @@
 <title>Booking</title>
 <link rel="stylesheet" href="project-5.css">
 <link rel="icon" href="images/ChatGPT Image Mar 17, 2026, 11_51_17 AM.png" type="image/x-icon">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 
 <body>
-    <header>
-        <h1>Around the World✈️🌍</h1>
+
+<header>
+    <h1>Around the World✈️🌍</h1>
 </header>
+
 <header>
     <nav>
-<a href="project-1.html">Home</a>
-<a href="project-2.html">Photo Gallery</a>
-<a href="project-3.html">Packages</a>
-<a href="project-4.html">Contact</a>
-
-</nav>
+        <a href="project-1.html">Home</a>
+        <a href="project-2.html">Photo Gallery</a>
+        <a href="project-3.html">Packages</a>
+        <a href="project-4.html">Contact</a>
+    </nav>
 </header>
-<div class="Booking">
-</div>
-<form class="booking">
+
+<form class="booking" onsubmit="generateTicket(event)">
     <h1>Book Your Tour</h1>
     <center>
-     <p>Fill out the form below to book your dream tour with us. We will get back to you with the details and confirmation.</p>
+    <p>Fill out the form below to book your dream tour.</p>
+
     <table>
         <tr>
             <td>Name:</td>
-            <td><input type="text" placeholder="Enter you Name"></td>
+            <td><input type="text" id="name" required></td>
         </tr>
 
         <tr>
             <td>Email:</td>
-            <td><input type="email" placeholder="Enter you email"></td>
+            <td><input type="email" id="email" required></td>
         </tr>
 
         <tr>
             <td>Travel Date:</td>
-            <td><input type="date"></td>
+            <td><input type="date" id="date" required></td>
         </tr>
 
         <tr>
-            <td>Pan Number:</td>
-            <td><input type="text" placeholder="Enter your Pan Number"></td>
+            <td>Phone:</td>
+            <td><input type="tel" id="phone" required></td>
         </tr>
 
         <tr>
-            <td>Phone Number:</td>
-            <td><input type="tel" placeholder="Enter your Phone Number"></td>
+            <td>Members:</td>
+            <td><input type="number" id="members" required></td>
         </tr>
 
         <tr>
-            <td>Adhaar Number:</td>
-            <td><input type="text" placeholder="Enter your Adhaar Number"></td>
-        </tr>
-
-        <tr>
-            <td>Passport Number:</td>
-            <td><input type="text" placeholder="Enter your Passport Number"></td>
-        </tr>
-        <tr>
-            <td>members:</td>
-            <td><input type="number" placeholder="Enter number of members"></td>
-        </tr>
-
-        <tr>
-            <td>Age list:</td>
-            <td><input type="text" placeholder="Enter ages of members"></td>
-        </tr>
-        <tr>
-            <td>Select Tour:</td>
+            <td>Tour:</td>
             <td>
-                <select>
+                <select id="tour">
                     <option>Paris</option>
                     <option>Maldives</option>
                     <option>Japan</option>
-                    <option>China</option>
                     <option>Thailand</option>
-                    <option>Rome</option>
-                    <optio>America</optio>
                     <option>Dubai</option>
-                    <option>Ancient Egypt</option>
                     <option>Turkey</option>
-                    <option>Indonesia</option>
                     <option>Australia</option>
-                    <option>Brazil</option>
-                    <option>India</option>
                 </select>
             </td>
         </tr>
     </table>
+
+    <br>
+    <button type="submit">Submit & Download Ticket 🎫</button>
+
     </center>
 </form>
+
+<script>
+function generateTicket(event) {
+    event.preventDefault();
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const date = document.getElementById("date").value;
+    const phone = document.getElementById("phone").value;
+    const members = document.getElementById("members").value;
+    const tour = document.getElementById("tour").value;
+    const bookingID = "TKT" + Math.floor(Math.random() * 1000000);
+    doc.setFillColor(0, 102, 204);
+    doc.rect(0, 0, 210, 30, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(18);
+    doc.text("AROUND THE WORLD - TICKET", 20, 20);
+    doc.setTextColor(0, 0, 0);
+    doc.rect(10, 40, 190, 100);
+    doc.setFontSize(12);
+    doc.text("Booking ID: " + bookingID, 20, 55);
+    doc.text("Name: " + name, 20, 65);
+    doc.text("Email: " + email, 20, 75);
+    doc.text("Phone: " + phone, 20, 85);
+    doc.text("Tour: " + tour, 20, 95);
+    doc.text("Date: " + date, 20, 105);
+    doc.text("Members: " + members, 20, 115);
+    doc.setFontSize(10);
+    doc.text("Have a safe journey 🌍✈️", 70, 150);
+    doc.save("Travel_Ticket.pdf");
+}
+</script>
+
 </body>
-<footer>
-    <center>
-    <button type="submit">Submit Booking</button>
-    </center>
-</footer>
 </html>
