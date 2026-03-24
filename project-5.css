@@ -13,10 +13,10 @@ justify-content:center;
 }
 
 footer{
+    justify content: center;
     background:rgb(247, 233, 233);
     padding: 10px;
     color:black;
-    justify content:center;
 }
 
 nav a{
